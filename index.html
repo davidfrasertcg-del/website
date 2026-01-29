@@ -1,1 +1,153 @@
-hello world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sugar Cuts — TCG Store</title>
+  <style>
+    :root {
+      --bg: #0b0b10;
+      --card: #151522;
+      --text: #eaeaf0;
+      --muted: #9aa;
+      --accent: #7cf7d4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, #1b1b3a, transparent), var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      padding: 2rem 1.5rem 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #1a1a2f, var(--card));
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview {
+      aspect-ratio: 1 / 1;
+      background: #000;
+    }
+
+    .preview iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .content {
+      padding: 0.9rem 1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .content h2 {
+      font-size: 1rem;
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    .content a {
+      margin-top: 0.4rem;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .content a:hover { text-decoration: underline; }
+
+    footer {
+      padding: 2rem 1.5rem 3rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Sugar Cuts — TCG Store</h1>
+  <p>Live listings. Click any card to jump straight to the eBay page. Inventory rotates — check back often.</p>
+</header>
+
+<main id="grid"></main>
+
+<footer>
+  <p>All items sold via eBay. This page is just a lightweight storefront + launcher.</p>
+</footer>
+
+<script>
+  /*
+    === HOW YOU USE THIS ===
+
+    1. Paste your eBay listing links below.
+    2. (Optional) Give each one a short title.
+    3. Done. No build tools, no backend, just open the file or host it.
+
+    The iframe gives you a live eBay preview so you don't have to manage images.
+  */
+
+  const ITEMS = [
+    {
+      title: "Magic the Gathering — Example Listing",
+      url: "https://www.ebay.com/itm/XXXXXXXXXXX"
+    },
+    {
+      title: "Nikke Nivel Arena — Example Listing",
+      url: "https://www.ebay.com/itm/YYYYYYYYYYY"
+    }
+  ];
+
+  const grid = document.getElementById('grid');
+
+  ITEMS.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    card.innerHTML = `
+      <div class="preview">
+        <iframe src="${item.url}" loading="lazy"></iframe>
+      </div>
+      <div class="content">
+        <h2>${item.title || 'View Listing'}</h2>
+        <a href="${item.url}" target="_blank" rel="noopener">View on eBay →</a>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
